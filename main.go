@@ -25,6 +25,7 @@ func main() {
 	})
 
 	app.Post("/upload", handlers.HandleFileUpload)
+	app.Get("/:id", handlers.HandleFileRetrieval)
 
 	log.Fatal(app.Listen(":8000"))
 }
