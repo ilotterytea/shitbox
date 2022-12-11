@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	shitbox "github.com/ilotterytea/shitbox/shitbox"
 	handlers "github.com/ilotterytea/shitbox/shitbox/handlers"
 )
 
@@ -16,6 +17,10 @@ func main() {
 		} else {
 			log.Fatal(err)
 		}
+	}
+
+	if err := shitbox.DBClient.Prisma.Connect(); err != nil {
+		log.Fatal(err)
 	}
 
 	app := fiber.New()

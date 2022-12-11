@@ -30,3 +30,8 @@ go.work
 # Storage data
 *.json
 *.db
+
+# Prisma
+*_gen.go
+migrations
+*.db-journal
