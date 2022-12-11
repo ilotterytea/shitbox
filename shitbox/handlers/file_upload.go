@@ -7,8 +7,8 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/ilotterytea/shitbox/shitbox/structures"
-	"github.com/ilotterytea/shitbox/shitbox/utils"
+	structures "github.com/ilotterytea/shitbox/shitbox/structures"
+	utils "github.com/ilotterytea/shitbox/shitbox/utils"
 )
 
 // Handler for requests to upload a file.

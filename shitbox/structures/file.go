@@ -1,4 +1,4 @@
-package structures
+package shitbox
 
 // Shitbox's file data.
 type File struct {

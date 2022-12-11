@@ -1,4 +1,4 @@
-package utils
+package shitbox
 
 import (
 	"crypto/rand"
