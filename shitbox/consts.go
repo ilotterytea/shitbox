@@ -1,9 +1,12 @@
 package shitbox
 
 import (
-	"github.com/ilotterytea/shitbox/prisma/db"
+	"context"
+
+	"github.com/ilotterytea/shitbox/db"
 )
 
 var (
 	DBClient = db.NewClient()
+	DBCtx    = context.Background()
 )

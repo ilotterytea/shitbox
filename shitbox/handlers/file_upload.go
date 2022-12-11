@@ -7,6 +7,8 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
+	"github.com/ilotterytea/shitbox/db"
+	shitbox "github.com/ilotterytea/shitbox/shitbox"
 	structures "github.com/ilotterytea/shitbox/shitbox/structures"
 	utils "github.com/ilotterytea/shitbox/shitbox/utils"
 )
@@ -42,6 +44,17 @@ func HandleFileUpload(c *fiber.Ctx) error {
 	}
 
 	c.SaveFile(file, fmt.Sprintf("./uploaded/%s%s", id, mime[len(mime)-1]))
+
+	_, err = shitbox.DBClient.File.CreateOne(
+		db.File.ID.Set(id),
+		db.File.Mime.Set(file.Header.Get("Content-Type")),
+		db.File.Ext.Set(mime[len(mime)-1]),
+		db.File.Secret.Set(key),
+	).Exec(shitbox.DBCtx)
+
+	if err != nil {
+		return err
+	}
 
 	return c.JSON(fiber.Map{
 		"status":  200,
