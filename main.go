@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -22,6 +23,11 @@ func main() {
 	if err := shitbox.DBClient.Prisma.Connect(); err != nil {
 		log.Fatal(err)
 	}
+	defer func() {
+		if err := shitbox.DBClient.Prisma.Disconnect(); err != nil {
+			panic(fmt.Errorf("could not disconnect: %w", err))
+		}
+	}()
 
 	app := fiber.New()
 
