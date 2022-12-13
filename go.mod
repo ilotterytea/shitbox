@@ -6,7 +6,9 @@ require github.com/gofiber/fiber/v2 v2.40.1
 
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
-	github.com/iancoleman/strcase v0.0.0-20190422225806-e506e3ef7365 // indirect
+	github.com/aymerick/raymond v2.0.2+incompatible // indirect
+	github.com/gofiber/template v1.7.3 // indirect
+	github.com/iancoleman/strcase v0.2.0 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/klauspost/compress v1.15.9 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect

@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/handlebars"
 	shitbox "github.com/ilotterytea/shitbox/shitbox"
 	handlers "github.com/ilotterytea/shitbox/shitbox/handlers"
 )
@@ -29,10 +30,12 @@ func main() {
 		}
 	}()
 
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		Views: handlebars.New("./templates", ".handlebars"),
+	})
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("yo")
+		return c.Render("api_usage", fiber.Map{})
 	})
 
 	app.Post("/upload", handlers.HandleFileUpload)
