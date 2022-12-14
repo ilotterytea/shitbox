@@ -1,0 +1,174 @@
+:root {
+    --bg: #151515;
+    --bg-border: #303030;
+    --fg: #eee;
+    --fg-border: #ddd;
+    --bg-2: #303030;
+    --bg-2-border: #454545;
+
+    --btn: #7aa751;
+    --btn-border: #63a62f;
+    --btn-hover: #84b458;
+    --btn-textshadow: #4c9021;
+}
+
+html, body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/** flex shit */
+.flex-c {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-r {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.content div {
+    margin: 4px 0;
+}
+
+/** Input. */
+input[type="file"]::file-selector-button {
+    background: linear-gradient(0deg, var(--btn-hover), var(--btn));
+    color: var(--fg);
+    text-shadow: 0 -1px 0 var(--btn-textshadow);
+
+    padding: 2px 4px;
+    border: var(--btn-border) solid 2px;
+    border-radius: 4px;
+}
+input[type="file"]::file-selector-button:hover {
+    background: linear-gradient(180deg, var(--btn-hover), var(--btn));
+    cursor: pointer;
+}
+
+/** Button. */
+button {
+    background: linear-gradient(0deg, var(--btn-hover), var(--btn));
+    color: var(--fg);
+    text-shadow: 0 -1px 0 var(--btn-textshadow);
+
+    padding: 2px 4px;
+    border: var(--btn-border) solid 2px;
+    border-radius: 4px;
+}
+button:hover {
+    background: linear-gradient(180deg, var(--btn-hover), var(--btn));
+    cursor: pointer;
+}
+
+/** Box. */
+.box {
+    background: var(--bg-2);
+
+    border: var(--bg-2-border) solid 2px;
+    border-radius: 4px;
+
+    padding: 6px;
+    
+    max-width: 340px;
+}
+
+/** Upload form! */
+.box.uploadform {
+    width: 340px;
+}
+.uploadform form button[type="submit"] {
+    width: 100%;
+    height: 32px;
+    margin-top: 6px;
+}
+.uploadform form input[type="file"] {
+    max-width: 340px;
+}
+.url {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.url #url {
+    background: var(--bg);
+    color: var(--btn-hover);
+
+    padding: 6px;
+
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.url button {
+    padding: 6px;
+}
+
+.url.actions button {
+    flex-grow: 1;
+    margin: 0 4px;
+}
+
+button#delete {
+    background: #af2f2f;
+    border-color: #8b2929;
+    text-shadow: 0 -1px 0 #af2f2f;
+}
+
+button#delete:hover { background: #c93a3a; }
+
+/** File preview. */
+.preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 340px;
+    max-height: 340px;
+}
+
+#preview_image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 4px 0;
+
+    max-width: 340px;
+    max-height: 340px;
+}
+
+#preview_image img {
+    width: 340px;
+    height: auto;
+}

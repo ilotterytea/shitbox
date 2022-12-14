@@ -34,10 +34,15 @@ func main() {
 		Views: handlebars.New("./templates", ".handlebars"),
 	})
 
+	app.Get("/web", func(c *fiber.Ctx) error {
+		return c.Render("file_upload", fiber.Map{})
+	})
+
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Render("api_usage", fiber.Map{})
 	})
 
+	app.Static("/", "./static")
 	app.Post("/upload", handlers.HandleFileUpload)
 	app.Get("/:id", handlers.HandleFileRetrieval)
 	app.Delete("/:id", handlers.HandleFileDeletion)

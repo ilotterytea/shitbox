@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shitbox</title>
+        <meta property="og:title" content="Shitbox" />
+        <meta property="og:description" content="A simple, easy-to-install \"box\" for your files." />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://malsup.github.io/jquery.form.js"></script>
+    <body>
+        <div class="container">
+            <div class="content">
+                <div class="box uploadform">
+                    <form action="/upload" method="post" enctype="multipart/form-data" id="uploadform">
+                        <input type="file" accept="image/*,video/*" name="file" id="file" /><br>
+                        <button type="submit" id="uploadbtn" style="display:none;">Upload!</button>
+                    </form>
+                </div>
+                <div class="box" id="preview" style="display: none;">
+                    <div class="box">
+                        <p id="title"></p>
+                    </div>
+                    <div id="preview_image">
+                    </div>
+                    <div class="flex-с" id="s_info" style="display: none;">
+                        <div class="url">
+                            <p id="url" onclick="window.getSelection().selectAllChildren(this);"></p>
+                        </div>
+                        <div class="url actions">
+                            <button id="delete" onclick="delete_img();">Delete</button>
+                            <button id="copy" onclick="copy('url');">Copy to clipboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        const file = document.getElementById("file");
+
+        const img = document.getElementById("preview_image");
+        const url = document.getElementById("url");
+        const title = document.getElementById("title");
+
+        const box_preview = document.getElementById("preview");
+        const s_info = document.getElementById("s_info");
+
+        file.addEventListener("change", () => {
+            const files = file.files[0];
+            if (files) {
+                const fr = new FileReader();
+                fr.readAsDataURL(files);
+                fr.addEventListener("load", () => {
+                    console.log(files);
+
+                    box_preview.style.display = "block";
+                    s_info.style.display = "none";
+                    document.getElementById("uploadbtn").style.display = "block";
+                    
+                    img.innerHTML = `<img src="${fr.result}" />`;
+                    title.innerHTML = `${files.name}`
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        let delete_url = undefined;
+
+        $("#uploadform").ajaxForm({
+            dataType: "json",
+            success: (response) => {
+                console.log(response)
+
+                delete_url = response.delete;
+
+                box_preview.style.display = "block";
+                s_info.style.display = "block";
+
+                title.innerHTML = `${response.meta.LiteralId}${response.meta.Ext}`
+                url.innerHTML = response.get
+
+                img.innerHTML = `<a href="${response.get}">${img.innerHTML}</a>`;
+            },
+            error: (res) => {
+                console.log(res.body)
+                alert(`The server returned an error with status code ${res.status} (${res.statusText.toUpperCase()})!`);
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        function copy(id) {
+            navigator.clipboard.writeText(document.getElementById(id).innerHTML).then(() => {
+                alert("Copied to clipboard!");
+            }, (err) => {
+                alert("Something went wrong while copying to clipboard: " + err);
+            });
+        }
+        function delete_img() {
+            if (delete_url == undefined) return;
+
+            $.ajax({
+                url: delete_url,
+                type: "DELETE",
+                success: (response) => {
+                    alert(`${response.status}: ${response.message}`);
+
+                    s_info.style.display = "none";
+                    box_preview.style.display = "none";
+                },
+                error: (res) => {
+                    alert(`The server returned an error with status code ${res.status} (${res.statusText.toUpperCase()})!`);
+                }
+            });
+        }
+    </script>
+</html>
